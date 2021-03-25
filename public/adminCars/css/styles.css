@@ -1,0 +1,19 @@
+.addcar{
+
+
+	border: none;
+	border-radius: 5px;
+	background-image: linear-gradient( #485563 , #7b8ea1);
+  transition: 300ms;
+  font-size: 20px;
+  color: white;
+  transition: 300ms!important;
+  margin-bottom: 50px;
+
+}
+
+.addcar:hover{
+
+	background-image: linear-gradient( #7b8ea1 , #7b8ea1)!important;
+  transition: 300ms!important;
+}

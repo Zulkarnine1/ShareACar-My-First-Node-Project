@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Car|<%= car.name%></title>
+    <link rel="icon" href="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595569757/shareCarTemp/Webp.net-resizeimage_dr3tkt.jpg">
+    <link rel="stylesheet" href="../carDisAssets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../carDisAssets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../carDisAssets/css/range.css">
+    <link rel="stylesheet" href="../carDisAssets/css/shareNav.css">
+    <link rel="stylesheet" href="../carDisAssets/css/styles.css">
+    <link rel="stylesheet" href="../homeAssets/css/Pretty-Footer.css">
+    <link rel="stylesheet" href="../loggedAssets/css/sharenav.css">
+    <link rel="stylesheet" href="../loggedAssets/css/styles.css">
+    <link rel="stylesheet" href="../adminHAssets/css/logged.css">
+    <link rel="stylesheet" href="../adminHAssets/css/styles.css">
+</head>
+
+<body style="padding: 0px; background-color: #e9ecef;">
+    
+<% if(auth==true){ %>
+    <% if(user.admin==true){ %>
+<%-include("partials/header2") -%>
+<% }else{ %>
+<%-include("partials/header1") -%>
+<% } %>
+        <% }else{ %>
+    <%-include("partials/header") -%>
+    <% } %>
+
+    <div style="margin-top: 20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-lg-7 col-xl-6 mx-auto">
+                    <div class="mx-auto"><div class="imgDef mx-auto" style="background-color: white;">
+    <div class="mx-auto" style="text-align:center;">
+    <a href="<%= car.img1 %>"><img class="mainImg" src="<%= car.img1 %>">
+        </a>
+        </div>
+    <div class="mx-auto" style="text-align:center;">
+    <a class="miniimgBtn" data-value="<%= car.img1 %>"><img class="miniimg" src="<%= car.img1 %>"></a>
+
+        <a class="miniimgBtn" data-value="<%= car.img2 %>"><img  class="miniimg" src="<%= car.img2 %>"></a>
+        <a class="miniimgBtn" data-value="<%= car.img3 %>"><img  class="miniimg" src="<%= car.img3 %>"></a>
+        <a class="miniimgBtn" data-value="<%= car.img4 %>"><img class="miniimg" src="<%= car.img4 %>"></a>
+        <a class="miniimgBtn" data-value="<%= car.img5 %>"><img class="miniimg" src="<%= car.img5 %>"></a>
+        <a class="miniimgBtn" data-value="<%= car.img6 %>"><img class="miniimg" src="<%= car.img6 %>"></a>
+    </div>
+</div></div>
+                </div>
+                <div class="col-md-6 mx-auto"><div class="detailCon" style="background-color: white!important;">
+<h3 class="product-title" align="center">Car details</h3>
+<h4 class="product-title"><%= car.name %></h4>
+<h4 class="product-title">Price: $<%= car.price %>/hour</h4>
+						
+    <div><h6 class="product-title" style="width: 120px;display: inline-block;"><b>ID:</b></h6><h6 style="width: 100px;display: inline-block;" > <%= car._id %></h6></div>
+    <div><h6 class="product-title" style="width: 120px;display: inline-block;"><b>Brand:</b></h6><h6 style="width: 100px;display: inline-block;" > <%= car.brand %></h6></div>
+<div style="display: block;"><h6 class="product-title" style="width: 120px;display: inline-block;"><b>Model</b>: </h6><h6 style="width: 100px;display: inline-block;"> <%= car.model %></h6></div>
+<div style="display: block;"><h6 class="product-title" style="width: 120px;display: inline-block;"><b>Released on:</b></h6><h6 style="width: 100px;display: inline-block;"> <%= new Date(car.age).toLocaleDateString()%></h6></div>
+<div style="display: block;"><h6 class="product-title" style="width: 120px;display: inline-block;"><b><%= car.resourceType %> left:</b></h6><h6 style="width: 100px;display: inline-block;"> <%= car.resourceLeft %> <%= car.resourceUnit %></h6>
+<div style="display: block;"><h6 class="product-title" style="width: 120px;display: inline-block;"><b>Mileage:</b></h6><h6 style="width: fit-content;display: inline-block;"> <%= car.mileage %> <%= car.mileageType %></h6></div>
+<div style="display: block;"><h6 class="product-title" style="width: 120px;display: inline-block;"><b>Car type:</b></h6><h6 style="width: 100px;display: inline-block;"> <%= car.catagory %></h6></div>
+<% if(car.availability==true){ %>
+<div style="display: block;"><h6 class="product-title" style="width: 120px;display: inline-block;"><b>Availability:</b></h6><h6 style="width: 100px;display: inline-block;" > available</h6></div>
+<% }else{ %>
+<div style="display: block;"><h6 class="product-title" style="width: 120px;display: inline-block;"><b>Availability:</b></h6><h6 style="width: 100px;display: inline-block;" >Not available</h6></div>
+<% } %>
+<h6 class="product-title"><b>About car:</b></h6>
+						<p class="product-description"><%=car.about%></p>
+                        <% if(car.availability==true){ %>
+    <div>
+    <h6 class="product-title"><b>Choose duration of rent</b>: </h6>
+        <div class="value">0 hours</div>
+        <div class="value1">$0</div>
+<input type="range" min="0" max="100" step="1" value="0" data-price0="<%= car.price %>" >
+        <div class="mx-auto" style="width: fit-content;margin-top: 30px"><button align="center" class="rentNowBtn" data-value0="0">Rent now</button></div>
+    </div>
+    <% }else{ %>
+*Car is not available for rent
+    <% } %>
+
+    <%if(auth==true){ %>
+    <%if(user.admin==true){ %>
+    <div class="mx-auto" style="width: fit-content;margin-top: 30px">
+        <a align="center" class="EditBtn" href="/editcar/<%= car._id %>" >Edit car</a>
+        <a align="center" class="EditBtn" href="/deleteCar/<%= car._id %>" >Delete car</a>
+    </div>
+    <%}}%>
+						
+
+</div></div>
+            </div>
+        </div>
+    </div>
+    <%-include("partials/footer") -%>
+    <script src="../carDisAssets/js/jquery.min.js"></script>
+    <script src="../homeAssets/js/common.js"></script>
+    <script src="../carDisAssets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../carDisAssets/js/range.js"></script>
+    <script src="../carDisAssets/js/script.js"></script>
+</body>
+
+</html>

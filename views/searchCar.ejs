@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Search</title>
+    <link rel="icon" href="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595569757/shareCarTemp/Webp.net-resizeimage_dr3tkt.jpg">
+    <link rel="stylesheet" href="../searchAssets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../searchAssets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../searchAssets/css/carcon.css">
+    <link rel="stylesheet" href="../searchAssets/css/sharenav.css">
+    <link rel="stylesheet" href="../searchAssets/css/styles.css">
+    <link rel="stylesheet" href="../homeAssets/css/Pretty-Footer.css">
+    <link rel="stylesheet" href="../loggedAssets/css/sharenav.css">
+    <link rel="stylesheet" href="../loggedAssets/css/styles.css">
+    <link rel="stylesheet" href="../adminHAssets/css/logged.css">
+    <link rel="stylesheet" href="../adminHAssets/css/styles.css">
+</head>
+
+<body>
+    <% if(auth==true){ %>
+    <% if(user.admin==true){ %>
+<%-include("partials/header2") -%>
+<% }else{ %>
+<%-include("partials/header1") -%>
+<% } %>
+        <% }else{ %>
+    <%-include("partials/header") -%>
+    <% } %>
+    
+    <div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12"><div style="margin-top: 50px;" >
+<div class="container carCon" >
+    <h1 align="left">Search results: <%= result.length %></h1>
+    <h3 align="left">Showing results for: "<%= query %>"</h3>
+    <div class="row" style="margin-top:50px;" >
+        <% if(result.length==0){ %>
+        <img src="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595412201/shareCarTemp/no_results_found_zqmmxd.png" style="width: 50%;">
+        <% }else{ %>
+        <% result.forEach(function(car){ %>
+        
+        <div class="col-md-3 col-sm-6 mx-auto" style="padding-bottom: 50px;">
+            <div class="product-grid6">
+                <div class="product-image6">
+                    <a href="/car/<%= car._id %>">
+                        <img class="pic-1" src="<%= car.img1%>">
+                    </a>
+                </div>
+                <div class="product-content">
+                    <h3 class="title"><a href="#"><%= car.name%></a></h3>
+                    <div class="price">$<%= car.price%>
+                        <span></span>
+                    </div>
+                </div>
+                <% if(auth==true){ %>
+                <% if(user.admin==false){ %>
+                <ul class="social">
+                    <li><a href="/car/<%= car._id %>" data-tip="Rent now"><img src="https://img.icons8.com/ios/50/000000/steering-wheel.png" style="height: 40px;width: 40px;" /></a></li>
+                    
+                    
+                </ul>
+                <%}else{%>
+                <ul class="social">
+                    <li style="margin-top: 10px;"><a href="/car/<%= car._id %>" data-tip="Rent now"><img src="https://img.icons8.com/ios/50/000000/steering-wheel.png" style="height: 40px;width: 40px;" /></a></li>
+                    
+                    
+                    <li style="margin-top: 10px;"><a href="/editcar/<%= car._id %>" data-tip="Edit Car"><img src="https://img.icons8.com/pastel-glyph/35/000000/edit.png"/></a></li>
+                    <li style="margin-top: 10px;"><a href="/deleteCar/<%= car._id %>" class="deleteCar" data-carID="<%= car._id %>" data-tip="Delete Car"><img src="https://img.icons8.com/wired/35/000000/delete-forever.png"/></a></li>
+                </ul>
+                <%}}else{%>
+                <ul class="social">
+                    <li><a href="/car/<%= car._id %>" data-tip="Rent now"><img src="https://img.icons8.com/ios/50/000000/steering-wheel.png" style="height: 40px;width: 40px;" /></a></li>
+                    
+                    
+                </ul>
+                <%}%>
+            </div>
+        </div>
+        <% }) }%>
+        
+       
+        
+    
+</div>
+
+
+
+</div></div>
+            </div>
+        </div>
+    </div>
+    <%-include("partials/footer") -%>
+    <script src="../searchAssets/js/jquery.min.js"></script>
+    <script src="../homeAssets/js/common.js"></script>
+    <script src="../searchAssets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

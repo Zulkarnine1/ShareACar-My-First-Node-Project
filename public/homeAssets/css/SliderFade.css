@@ -1,0 +1,82 @@
+.slider {
+  width: 100%;
+  height: 600px;
+  margin: 20px auto;
+  position: relative;
+}
+
+.slide1, .slide2, .slide3, .slide4, .slide5 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.slide1 {
+  background: url(https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595588597/shareCarTemp/roland-denes-EWf48MRVUNE-unsplash_vn3qp8.jpg)no-repeat center;
+  background-size: contain;
+  animation: fade 100ms infinite;
+  -webkit-animation: fade 15s infinite;
+}
+
+.slide2 {
+  background: url(https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595588600/shareCarTemp/samuele-errico-piccarini-FMbWFDiVRPs-unsplash_2_ax9v2a.jpg)no-repeat center;
+  background-size: contain;
+  animation: fade2 100ms infinite;
+  -webkit-animation: fade2 15s infinite;
+}
+
+.slide3 {
+  background: url(https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595588597/shareCarTemp/tim-foster-TW-rxLXqJUs-unsplash_rp3rrc.jpg)no-repeat center;
+  background-size: contain;
+  animation: fade3 100ms infinite;
+  -webkit-animation: fade3 15s infinite;
+}
+
+.slider {
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  33.333% {
+    opacity: 0;
+  }
+  66.666% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade2 {
+  0% {
+    opacity: 0;
+  }
+  33.333% {
+    opacity: 1;
+  }
+  66.666% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade3 {
+  0% {
+    opacity: 0;
+  }
+  33.333% {
+    opacity: 0;
+  }
+  66.666% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+

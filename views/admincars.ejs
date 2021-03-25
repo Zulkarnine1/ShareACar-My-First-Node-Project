@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Admin|Cars</title>
+    <link rel="icon" href="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595569757/shareCarTemp/Webp.net-resizeimage_dr3tkt.jpg">
+    <link rel="stylesheet" href="../adminCars/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../adminCars/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../adminCars/css/adminHead.css">
+    <link rel="stylesheet" href="../adminCars/css/carcon.css">
+    <link rel="stylesheet" href="../adminCars/css/styles.css">
+    <link rel="stylesheet" href="../homeAssets/css/Pretty-Footer.css">
+</head>
+
+<body>
+     <% if(auth==true){ %>
+    <% if(user.admin==true){ %>
+<%-include("partials/header2") -%>
+<% }else{ %>
+<%-include("partials/header1") -%>
+<% } %>
+        <% }else{ %>
+    <%-include("partials/header") -%>
+    <% } %>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 30px;">
+                    <h1 class="text-center border rounded" style="background-color: rgb(248,246,246);padding-top: 10px;padding-bottom: 10px;">Cars</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12"><div style="margin-top: 50px;" >
+<div class="container carCon" >
+  
+    <div class="row" style="margin-top:50px;">
+        <div class="col-12" ><div class="mx-auto" style="width: auto;margin-bottom: 20px;text-align: center; "><button class="addcar" style="width: 25vh;height: 25vh;"> <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+width="26" height="26"
+viewBox="0 0 172 172"
+style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M27.70192,0c-3.97956,0 -6.61538,2.63582 -6.61538,6.61538v158.76923c0,3.97957 2.63582,6.61538 6.61538,6.61538h79.38462c3.97957,0 6.61538,-2.63581 6.61538,-6.61538v-22.53365c-4.6256,-1.31791 -9.2512,-2.53245 -13.23077,-5.16827v21.08654h-66.15385v-145.53846h66.15385v21.08654c3.97957,-1.98978 8.60517,-3.8762 13.23077,-4.54808v-23.15385c0,-3.97956 -2.63581,-6.61538 -6.61538,-6.61538zM126.93269,40.93269c-25.14363,0 -44.86058,19.92368 -44.86058,45.06731c0,25.14363 20.38882,45.06731 44.86058,45.06731c24.47176,0 45.06731,-20.59555 45.06731,-45.06731c0,-24.47176 -19.92368,-45.06731 -45.06731,-45.06731zM120.31731,59.53846h13.23077v19.84615h19.84615v13.23077h-19.84615v19.84615h-13.23077v-19.84615h-19.84615v-13.23077h19.84615z"></path></g></g></svg>&nbsp Add car</button></div></div>
+        <% cars.forEach(function(car){ %>
+        
+        <div class="col-md-3 col-sm-6 selectCar" style="padding-bottom: 20px;">
+            <div class="product-grid6">
+                <div class="product-image6">
+                    <a href="/car/<%= car._id %>">
+                        <img class="pic-1" src="<%= car.img1%>">
+                    </a>
+                </div>
+                <div class="product-content">
+                    <h3 class="title"><a href="#"><%= car.name%></a></h3>
+                    <div class="price">$<%= car.price%>
+                        <span></span>
+                    </div>
+                </div>
+                <ul class="social">
+                    <li style="margin-top: 10px;"><a href="/car/<%= car._id %>" data-tip="Rent now"><img src="https://img.icons8.com/ios/50/000000/steering-wheel.png" style="height: 40px;width: 40px;" /></a></li>
+                    
+                    
+                    <li style="margin-top: 10px;"><a href="/editcar/<%= car._id %>" data-tip="Edit Car"><img src="https://img.icons8.com/pastel-glyph/35/000000/edit.png"/></a></li>
+                    <li style="margin-top: 10px;"><a href="/deleteCar/<%= car._id %>" class="deleteCar" data-carID="<%= car._id %>" data-tip="Delete Car"><img src="https://img.icons8.com/wired/35/000000/delete-forever.png"/></a></li>
+                </ul>
+            </div>
+        </div>
+        <% }) %>
+        
+        
+        
+    
+</div>
+
+
+
+</div></div>
+            </div>
+        </div>
+    </div>
+    <%-include("partials/footer") -%>
+    <script src="../adminCars/js/jquery.min.js"></script>
+    <script src="../homeAssets/js/common.js"></script>
+    <script src="../adminCars/js/script.js"></script>
+    <script src="../adminCars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

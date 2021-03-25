@@ -1,0 +1,75 @@
+.EditBtn{
+
+  border-radius: 4px;
+    background-color: grey;
+    color: white;
+    margin: 5px;
+    border: 2px solid black;
+    padding: 10px 16px;
+    transition: 300ms;
+}
+
+.EditBtn:hover{
+
+    transition: 300ms;
+  text-decoration: none;
+  background-color: black;
+  color: white;
+
+
+}
+
+.detailCon {
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  .imgDef {
+    margin-top: 20px;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+    width: 500px;
+  }
+}
+
+@media (max-width: 767px) {
+  .imgDef {
+    margin-top: 20px;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+    width: 300px;
+  }
+}
+
+#imagelightbox {
+  position: fixed;
+  z-index: 9999;
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
+.miniimg {
+  width: 60px;
+  margin: 5px;
+}
+
+@media (max-width: 767px) {
+  .mainImg {
+    width: 300px;
+  }
+}
+
+@media (min-width: 768px) {
+  .mainImg {
+    width: 500px;
+  }
+}
+
+div {
+}
+
+div {
+}
+

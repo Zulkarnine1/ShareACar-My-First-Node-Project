@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Rent status</title>
+    <link rel="icon" href="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595569757/shareCarTemp/Webp.net-resizeimage_dr3tkt.jpg">
+    <link rel="stylesheet" href="../rentStatusAssets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../rentStatusAssets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../rentStatusAssets/css/sharenav.css">
+    <link rel="stylesheet" href="../rentStatusAssets/css/styles.css">
+    <link rel="stylesheet" href="../rentStatusAssets/css/tick.css">
+    <link rel="stylesheet" href="../rentStatusAssets/css/timer.css">
+    <link rel="stylesheet" href="../homeAssets/css/Pretty-Footer.css">
+    <link rel="stylesheet" href="../loggedAssets/css/sharenav.css">
+    <link rel="stylesheet" href="../loggedAssets/css/styles.css">
+    <link rel="stylesheet" href="../adminHAssets/css/logged.css">
+    <link rel="stylesheet" href="../adminHAssets/css/styles.css">
+</head>
+
+<body>
+    <% if(auth==true){ %>
+    <% if(user.admin==true){ %>
+<%-include("partials/header2") -%>
+<% }else{ %>
+<%-include("partials/header1") -%>
+<% } %>
+        <% }else{ %>
+    <%-include("partials/header") -%>
+    <% } %>
+
+   
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 30px;">
+                    <h1 class="text-center">Rent Status</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 30px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <% if(rent.rentClosed==false){ %>
+                    <div class="text-center" style="margin-bottom: 20px;">
+                        <h3 style="margin-bottom: 20px;">Rent in progress</h3><img src="../rentStatusAssets/img/tenor%20(4).gif" style="width: 200px;margin-top: 30px;"></div>
+                        <% }else{ %>
+                        <div>
+    <h3 align="center">Rent Closed</h3>
+<div class="check_mark">
+  <div class="sa-icon sa-success animate">
+    <span class="sa-line sa-tip animateSuccessTip"></span>
+    <span class="sa-line sa-long animateSuccessLong"></span>
+    <div class="sa-placeholder"></div>
+    <div class="sa-fix"></div>
+  </div>
+</div>
+
+</div>
+<% } %>
+
+
+</div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-7 rentInfo mx-auto">
+                    <h1 class="text-center">Rent Details</h1>
+                    <div>
+                        <h5>Rent ID: <%= rent._id %></h5>
+                    </div>
+                        <% if(rent.rentClosed==false){ %>
+                    <div>
+                        <h5 class="endtime" data-value1="<%= rent.endTime %>">Rent closes in:</h5><div class="text-center timerCon mx-auto" >
+<div class="container">
+  
+  <ul>
+    <li class="timeItem1"><span id="days" class="timeItem"></span>days</li>
+    <li class="timeItem1"><span id="hours" class="timeItem"></span>Hours</li>
+    <li class="timeItem1"><span id="minutes" class="timeItem"></span>Minutes</li>
+    <li class="timeItem1"><span id="seconds" class="timeItem"></span>Seconds</li>
+  </ul>
+</div>
+
+</div></div>
+                    <hr>
+                    <% } %>
+
+                    <div>
+                        <h5>Renter:</h5>
+                        <div class="text-center" style="width: 300px;"><img class="rounded-circle" src="<%= renter.profileImg%>" width="60px" height="60px"><label class="d-block"><%= renter.name %></label></div>
+                    </div>
+                    <hr>
+                    <div>
+                        <h5>Car:</h5>
+                        <div class="text-center" style="width: 300px;"><img class="rounded" src="<%= car.img1%>" width="300px" style="margin-top: 20px;">
+                            <h5 style="font-size: 18px;">Car name: <%= car.name%></h5><a href="/car/<%= car._id %>" class="btn btn-dark " style="color: white;" type="button">View car</a></div>
+                    </div>
+                    <hr>
+                    <div style="margin-top: 30px;">
+                        <h5>Rent information:</h5>
+                        <div class="text-left" style="width: 300px;">
+                            <% if(rent.rentClosed==true){ %>
+                            <h5 style="font-size: 18px;">Rent status: Closed</h5>
+                            <% }else{ %>
+
+                            <h5 style="font-size: 18px;">Rent status: In progress</h5>
+                            <% } %>
+                            <h5 style="font-size: 18px;">Cost: $<%= rent.cost %></h5>
+                            <h5 style="font-size: 18px;">Start time: <%= new Date(rent.startTime).toLocaleString()%></h5>
+                            <h5 style="font-size: 18px;">End time: <%= new Date(rent.endTime).toLocaleString()%></h5>
+                        </div>
+                        <% if(rent.rentClosed==false){ %>
+                            <div style="width: 200px;margin-top: 20px;" class="mx-auto">  <a href="/rentReview/<%= rent._id%>" class="closeRent">Close rent</a></div>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%-include("partials/footer") -%>
+    <script src="../rentStatusAssets/js/jquery.min.js"></script>
+    <script src="../homeAssets/js/common.js"></script>
+    <script src="../rentStatusAssets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../rentStatusAssets/js/timer.js"></script>
+</body>
+
+</html>

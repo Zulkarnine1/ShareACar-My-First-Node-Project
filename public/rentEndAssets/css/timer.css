@@ -1,0 +1,42 @@
+.timerCon {
+  background-color: grey;
+  border-radius: 5px;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+@media (min-width: 576px) {
+  .timerCon {
+    width: 360px;
+  }
+}
+
+@media (max-width: 575px) {
+  .timerCon {
+    width: 280px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-weight: normal;
+}
+
+.timeItem1 {
+  display: inline-block;
+  font-size: 14px;
+  list-style-type: none;
+  padding: 7px;
+  text-transform: uppercase;
+  color: white;
+}
+
+.timeItem {
+  display: block;
+  font-size: 1.5rem;
+}
+

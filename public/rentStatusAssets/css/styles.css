@@ -1,0 +1,42 @@
+.rentInfo {
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.btn.btn-dark:hover {
+  transform: scale(1.1);
+  transition: 200ms;
+}
+
+.rounded {
+}
+
+.btn.btn-dark {
+  transition: 200ms;
+}
+
+.closeRent{
+width: 200px;
+border-radius: 4px;
+text-decoration: none;
+background-color: red;
+    padding: 6px 12px;
+    /* margin: 10px; */
+    color: white;
+    transition: 200ms;
+
+
+}
+.closeRent:hover{
+
+border-radius: 4px;
+text-decoration: none;
+background-color: black;
+    
+    /* margin: 10px; */
+    color: white;
+    transition: 200ms;
+
+
+}

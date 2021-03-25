@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Admin|Home</title>
+    <link rel="icon" href="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595569757/shareCarTemp/Webp.net-resizeimage_dr3tkt.jpg">
+    <link rel="stylesheet" href="adminHomeAssets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="adminHomeAssets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="adminHomeAssets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="adminHomeAssets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="adminHomeAssets/css/adminHead.css">
+    <link rel="stylesheet" href="adminHomeAssets/css/carcon.css">
+    <link rel="stylesheet" href="adminHomeAssets/css/counter.css">
+    <link rel="stylesheet" href="adminHomeAssets/css/rentUser2.css">
+    <link rel="stylesheet" href="adminHomeAssets/css/styles.css">
+    <link rel="stylesheet" href="homeAssets/css/Pretty-Footer.css">
+    <link rel="stylesheet" href="loggedAssets/css/sharenav.css">
+    <link rel="stylesheet" href="loggedAssets/css/styles.css">
+    <link rel="stylesheet" href="adminHAssets/css/logged.css">
+    <link rel="stylesheet" href="adminHAssets/css/styles.css">
+    <link rel="stylesheet" href="userAccAssets/css/styles.css">
+</head>
+
+<body>
+        <% if(auth==true){ %>
+    <% if(user.admin==true){ %>
+<%-include("partials/header2") -%>
+<% }else{ %>
+<%-include("partials/header1") -%>
+<% } %>
+        <% }else{ %>
+    <%-include("partials/header") -%>
+    <% } %>
+
+    <div class="mx-auto">
+
+
+<div id="projectFacts" class="sectionClass mx-auto" data-value1="<%= cars.length%>" data-value2="<%= customers%>" data-value3="<%= rents.length %>">
+    <div class="fullWidth eight columns mx-auto">
+        <div class="projectFactsWrap mx-auto">
+            <a href="/adminCars">
+            <div class="item wow fadeInUpBig animated animated" data-number="12" style="visibility: visible;">
+                <i class="fas fa-car"></i>
+                <p id="number1" class="number">12</p>
+                <span></span>
+                <p>Cars</p>
+            </div>
+                </a>
+            <a href="/adminRenters">
+            <div class="item wow fadeInUpBig animated animated" data-number="55" style="visibility: visible;">
+                <i class="fa fa-smile-o"></i>
+                <p id="number2" class="number">55</p>
+                <span></span>
+                <p>Clients</p>
+            </div>
+                </a>
+                <a href="/adminRents">
+            <div class="item wow fadeInUpBig animated animated" data-number="359" style="visibility: visible;">
+                <i class="fa fa-briefcase"></i>
+                <p id="number3" class="number">359</p>
+                <span></span>
+                <p>Rents</p>
+            </div>
+                    </a>
+            
+        </div>
+    </div>
+</div>
+
+</div>
+    <div>
+        <a class="mainLink" href="/adminRents">
+            <h1 class="text-center">Active Rents</h1>
+        </a>
+    </div>
+    <div style="margin-top: 20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                     <% rents.reverse().forEach(function(rent){ %>
+                     <% if(rent.rentClosed==false){ %>
+                    <% var mycar; %>
+                    <% cars.forEach(function(car){ %>
+                    <% if(rent.car==car._id){mycar=car}else{} %>
+                    <% }) %>
+
+                    <div>
+                        <div class="row" style="margin:0px;padding:20px;">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" style="padding: 0px;">
+                                <div style="background-image: url(&quot;<%= mycar.img1 %>&quot;);height: 25vh;background-repeat: no-repeat;background-size: cover;background-position: center;"></div>
+                            </div>
+                            <div class="w-100 d-sm-block d-md-none d-lg-none d-xl-none"></div>
+                            <div class="col" style="padding:0px;">
+                                <div class="card">
+                                    <div class="card-body" style="height: auto;min-height: 25vh;">
+                                        <h4 class="card-title">ID: <%= rent._id %></h4>
+                                        <% if(rent.rentClosed==false){ %>
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;font-size: 18px;">Rent Status: In progress</h6>
+                                        <% }else{ %>
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;font-size: 18px;">Rent Status: Closed</h6>
+                                        <% } %>
+                                        
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;margin-bottom: 10px;">Car: <%= mycar.name %></h6>
+                                        <% let start = new Date(rent.startTime) %>
+                                        <% let end = new Date(rent.endTime) %>
+                                        <% let dur = new Date(end - start);  %>
+                                        
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;margin-bottom: 10px;">Rent Duration: <%= dur.getHours() %> hours</h6>
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;">Rent Cost: $<%= rent.cost%></h6>
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;">Date rented: <%= start.toLocaleDateString() %><br></h6><a class="card-link viewRentBtn" href="/rentStatus/<%= rent._id %>">View rent</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }}) %>
+                </div>
+    <hr>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a class="mainLink" href="/adminCars">
+            <h1 class="text-center">Cars</h1>
+        </a>
+    </div>
+    <div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12"><div style="margin-top: 50px;" >
+<div class="container carCon" >
+    
+    <div class="row" style="margin-top:50px;">
+        <% cars.forEach(function(car){ %>
+        
+        <div class="col-md-3 col-sm-6" style="padding-bottom: 20px;">
+            <div class="product-grid6">
+                <div class="product-image6">
+                    <a href="/car/<%= car._id %>">
+                        <img class="pic-1" src="<%= car.img1%>">
+                    </a>
+                </div>
+                <div class="product-content">
+                    <h3 class="title"><a href="#"><%= car.name%></a></h3>
+                    <div class="price">$<%= car.price%>
+                        <span></span>
+                    </div>
+                </div>
+                <ul class="social">
+                    <li><a href="/car/<%= car._id %>" data-tip="Rent now"><img src="https://img.icons8.com/ios/50/000000/steering-wheel.png" style="height: 40px;width: 40px;" /></a></li>
+                    <li><a href="/editcar/<%= car._id %>" data-tip="Edit Car"><img src="https://img.icons8.com/pastel-glyph/35/000000/edit.png"/></a></li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <% }) %>
+        
+     
+    </div>
+    
+</div>
+
+
+
+</div></div>
+            </div>
+        </div>
+    </div>
+    <%-include("partials/footer") -%>
+    <script src="adminHomeAssets/js/jquery.min.js"></script>
+    <script src="homeAssets/js/common.js"></script>
+    <script src="adminHomeAssets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="adminHomeAssets/js/counter.js"></script>
+</body>
+
+</html>

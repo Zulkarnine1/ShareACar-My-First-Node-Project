@@ -1,0 +1,18 @@
+.viewRentBtn{
+
+
+	color: white;
+	background-color: grey;
+	padding:8px 30px;
+	border: 1px solid grey;
+	border-radius:4px;
+	transition: 200ms;
+}
+
+.viewRentBtn:hover{
+
+	color: white;
+	background-color: black;
+	transition: 200ms;
+
+}

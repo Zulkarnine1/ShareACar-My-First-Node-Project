@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Admin|Renters</title>
+    <link rel="icon" href="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595569757/shareCarTemp/Webp.net-resizeimage_dr3tkt.jpg">
+    <link rel="stylesheet" href="../adminRenters/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../adminRenters/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../adminRenters/css/adminHead.css">
+    <link rel="stylesheet" href="../adminRenters/css/card.css">
+    <link rel="stylesheet" href="../adminRenters/css/styles.css">
+    <link rel="stylesheet" href="../homeAssets/css/Pretty-Footer.css">
+    <link rel="stylesheet" href="../loggedAssets/css/sharenav.css">
+    <link rel="stylesheet" href="../loggedAssets/css/styles.css">
+    <link rel="stylesheet" href="../adminHAssets/css/logged.css">
+    <link rel="stylesheet" href="../adminHAssets/css/styles.css">
+    <link rel="stylesheet" href="../userAccAssets/css/styles.css">
+</head>
+
+<body>
+     <% if(auth==true){ %>
+    <% if(user.admin==true){ %>
+<%-include("partials/header2") -%>
+<% }else{ %>
+<%-include("partials/header1") -%>
+<% } %>
+        <% }else{ %>
+    <%-include("partials/header") -%>
+    <% } %>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 30px;">
+                    <h1 class="text-center border rounded" style="background-color: #e8e5e5;padding-top: 20px;padding-bottom: 20px;">Renters</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12"><div>
+
+
+<!------ Include the above in your HEAD tag ---------->
+
+
+
+<!------ Include the above in your HEAD tag ---------->
+
+<!-- Team -->
+<section id="team" class="pb-5">
+    <div class="container">
+        
+        <div class="row">
+            <!-- Team member -->
+
+            <% renters.forEach(function(renter){ %>
+            <div class="col-xs-12 col-sm-6 col-md-4" style="margin-bottom: 20px;">
+                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                    <div class="mainflip">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid" src="<%= renter.profileImg %>" alt="card image"></p>
+                                    <h4 class="card-title"><%= renter.name %></h4>
+                                    <p class="card-text"><label>Credits:</label> $<%= renter.credit %><br>
+                                        <% if(renter.ver==true){ %>
+                                        <label>Verifications: <i class="fa fa-check" style="color: green;"></i> verified</label></p>
+                                        <%}else{%>
+                                        <label>Verifications: <i class="fa fa-close" style="color: red;"></i> not verified</label></p>
+                                        <% } %>
+
+                                    <a href="#" class="btn btn-primary btn-sm">See more</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backside">
+                            <div class="card">
+                                <div class="card-body text-center mt-4">
+                                    <h4 class="card-title">License</h4>
+                                    <p class="card-text" style="min-width: 200px; ">
+
+                                        <% if(renter.license==undefined){ %>
+                                        User has not uploaded license yet
+                                        <%}else{%>
+                                        <img src="<%= renter.license %>" style="width: 200px;">
+                                        <%}%>
+                                    </p>
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item">
+                                            <a class="social-icon text-xs-center"  href="/editUser/<%= renter._id %>" style="">
+                                                <i class='fa fa-edit'></i> View/Edit
+                                            </a>
+                                        </li>
+                                        
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <% }) %>
+            <!-- ./Team member -->
+            <!-- Team member -->
+            
+
+        </div>
+    </div>
+</section>
+<!-- Team -->
+
+
+</div></div>
+            </div>
+        </div>
+    </div>
+    <script src="../adminRenters/js/jquery.min.js"></script>
+    <script src="../homeAssets/js/common.js"></script>
+    <script src="../adminRenters/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

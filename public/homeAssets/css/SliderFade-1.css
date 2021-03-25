@@ -1,0 +1,34 @@
+.slider {
+  width: 100%;
+  height: 600px;
+  margin: 20px auto;
+  position: relative;
+}
+
+.slide1, .slide2, .slide3, .slide4, .slide5 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.slide1 {
+  background: url(http://media.dunkedcdn.com/assets/prod/40946/580x0-9_cropped_1371566801_p17tbs0rrjqdt1u4dnk94fe4b63.jpg)no-repeat center;
+  background-size: cover;
+  animation: fade 8s infinite;
+  -webkit-animation: fade 8s infinite;
+}
+
+.slide2 {
+  background: url(http://media.dunkedcdn.com/assets/prod/40946/580x0-9_cropped_1371565525_p17tbqpu0d69c21hetd77dh483.jpeg)no-repeat center;
+  background-size: cover;
+  animation: fade2 8s infinite;
+  -webkit-animation: fade2 8s infinite;
+}
+
+.slide3 {
+  background: url(http://media.dunkedcdn.com/assets/prod/40946/580x0-9_cropped_1371564896_p17tbq6n86jdo3ishhta3fv1i3.jpg)no-repeat center;
+  background-size: cover;
+  animation: fade3 8s infinite;
+  -webkit-animation: fade3 8s infinite;
+}
+

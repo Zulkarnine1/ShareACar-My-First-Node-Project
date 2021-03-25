@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>ShareACar|Home</title>
+    <link rel="icon" href="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595569757/shareCarTemp/Webp.net-resizeimage_dr3tkt.jpg">
+    <link rel="stylesheet" href="homeAssets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
+    <link rel="stylesheet" href="homeAssets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="homeAssets/css/3D-SLIDER-1.css">
+    <link rel="stylesheet" href="homeAssets/css/3D-SLIDER.css">
+    <link rel="stylesheet" href="homeAssets/css/Animated-Type-Heading.css">
+    <link rel="stylesheet" href="homeAssets/css/best-carousel-slide.css">
+    <link rel="stylesheet" href="homeAssets/css/Bold-BS4-Full-Page-Image-Slider-Header-Reponsive.css">
+    <link rel="stylesheet" href="homeAssets/css/Navigation-Clean.css">
+    <link rel="stylesheet" href="homeAssets/css/procard.css">
+    <link rel="stylesheet" href="homeAssets/css/SliderFade-1.css">
+    <link rel="stylesheet" href="homeAssets/css/SliderFade.css">
+    <link rel="stylesheet" href="homeAssets/css/Pretty-Search-Form.css">
+    <link rel="stylesheet" href="homeAssets/css/styles.css">
+    <link rel="stylesheet" href="homeAssets/css/Pretty-Footer.css">
+    <link rel="stylesheet" href="loggedAssets/css/sharenav.css">
+    <link rel="stylesheet" href="loggedAssets/css/styles.css">
+    <link rel="stylesheet" href="adminHAssets/css/logged.css">
+    <link rel="stylesheet" href="adminHAssets/css/styles.css">
+</head>
+
+<body>
+    <% if(auth==true){ %>
+        <% if(user.admin==true){ %>
+            <%-include("partials/header2") -%>
+                <% }else{ %>
+                    <%-include("partials/header1") -%>
+                        <% } %>
+                            <% }else{ %>
+                                <%-include("partials/header") -%>
+                                    <% } %>
+                                        <div>
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="slider" style="height: 50vh;">
+                                                            <div class="slide1"></div>
+                                                            <div class="slide2"></div>
+                                                            <div class="slide3"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="caption v-middle text-center">
+                                                <h1 class="cd-headline clip">
+                                                    <span class="blc">Our cars| </span>
+                                                    <span class="cd-words-wrapper">
+			              <b class="is-visible">Safe</b>
+			              <b>Inexpensive</b>
+			              <b>Maintained</b>
+			              <b>Insured</b>
+			              <b>Efficient</b>
+			              <b>Clean</b>
+			            </span>
+                                                </h1>
+                                            </div>
+                                        </div>
+                                        <div>
+
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div style="margin-top: 50px;">
+                                                            <div class="container carCon">
+                                                                <h1 align="center">Cars available for Renting</h1>
+                                                                <div class="row" style="margin-top:50px;">
+                                                                    <% cars = cars.sort(function(a, b){return 0.5 - Math.random()}); %>
+                                                                        <% cars.forEach(function(car){ %>
+                                                                            <% if(car.availability==true){ %>
+                                                                                <div class="col-md-3 col-sm-6" style="padding-bottom: 20px;">
+                                                                                    <div class="product-grid6">
+                                                                                        <div class="product-image6">
+                                                                                            <a href="/car/<%= car._id %>">
+                        <img class="pic-1" src="<%= car.img1%>">
+                    </a>
+                                                                                        </div>
+                                                                                        <div class="product-content">
+                                                                                            <h3 class="title">
+                                                                                                <a href="#">
+                                                                                                    <%= car.name%>
+                                                                                                </a>
+                                                                                            </h3>
+                                                                                            <div class="price">$
+                                                                                                <%= car.price%>
+                                                                                                    <span></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <ul class="social">
+                                                                                            <li>
+                                                                                                <a href="/car/<%= car._id %>" data-tip="Rent now"><img src="https://img.icons8.com/ios/50/000000/steering-wheel.png" style="height: 40px;width: 40px;" /></a>
+                                                                                            </li>
+
+
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <% }}) %>
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div style="margin-top: 50px;">
+                                                            <div class="container carCon">
+                                                                <h1 align="center">Cars already rented by others</h1>
+                                                                <div class="row" style="margin-top:50px;">
+                                                                    <% cars = cars.sort(function(a, b){return 0.5 - Math.random()}); %>
+                                                                        <% cars.forEach(function(car){ %>
+                                                                            <% if(car.availability==false){ %>
+                                                                                <div class="col-md-3 col-sm-6" style="padding-bottom: 20px;">
+                                                                                    <div class="product-grid6">
+                                                                                        <div class="product-image6">
+                                                                                            <a href="/car/<%= car._id %>">
+                        <img class="pic-1" src="<%= car.img1%>">
+                    </a>
+                                                                                        </div>
+                                                                                        <div class="product-content">
+                                                                                            <h3 class="title">
+                                                                                                <a href="#">
+                                                                                                    <%= car.name%>
+                                                                                                </a>
+                                                                                            </h3>
+                                                                                            <div class="price">$
+                                                                                                <%= car.price%>
+                                                                                                    <span></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <% if(auth==true){ %>
+                                                                                            <% if(user.admin==false){ %>
+                                                                                                <ul class="social">
+                                                                                                    <li>
+                                                                                                        <a href="/car/<%= car._id %>" data-tip="Rent now"><img src="https://img.icons8.com/ios/50/000000/steering-wheel.png" style="height: 40px;width: 40px;" /></a>
+                                                                                                    </li>
+
+
+                                                                                                </ul>
+                                                                                                <%}else{%>
+                                                                                                    <ul class="social">
+                                                                                                        <li style="margin-top: 10px;">
+                                                                                                            <a href="/car/<%= car._id %>" data-tip="Rent now"><img src="https://img.icons8.com/ios/50/000000/steering-wheel.png" style="height: 40px;width: 40px;" /></a>
+                                                                                                        </li>
+
+
+                                                                                                        <li style="margin-top: 10px;">
+                                                                                                            <a href="/editcar/<%= car._id %>" data-tip="Edit Car"><img src="https://img.icons8.com/pastel-glyph/35/000000/edit.png" /></a>
+                                                                                                        </li>
+                                                                                                        <li style="margin-top: 10px;">
+                                                                                                            <a href="/deleteCar/<%= car._id %>" class="deleteCar" data-carID="<%= car._id %>" data-tip="Delete Car"><img src="https://img.icons8.com/wired/35/000000/delete-forever.png" /></a>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                    <%}}else{%>
+                                                                                                        <ul class="social">
+                                                                                                            <li>
+                                                                                                                <a href="/car/<%= car._id %>" data-tip="Rent now"><img src="https://img.icons8.com/ios/50/000000/steering-wheel.png" style="height: 40px;width: 40px;" /></a>
+                                                                                                            </li>
+
+
+                                                                                                        </ul>
+                                                                                                        <%}%>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <% }}) %>
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%-include("partials/footer") -%>
+
+
+                                                <script src="homeAssets/js/jquery.min.js"></script>
+                                                <script src="homeAssets/js/common.js"></script>
+                                                <script src="homeAssets/bootstrap/js/bootstrap.min.js"></script>
+                                                <script src="homeAssets/js/3D-SLIDER-1.js"></script>
+                                                <script src="homeAssets/js/3D-SLIDER-2.js"></script>
+                                                <script src="homeAssets/js/3D-SLIDER-3.js"></script>
+
+
+                                                <script src="homeAssets/js/3D-SLIDER.js"></script>
+                                                <script src="homeAssets/js/Animated-Type-Heading.js"></script>
+                                                <script>
+                                                    (function() {
+                                                        var pp = document.createElement('script'),
+                                                            ppr = document.getElementsByTagName('script')[0];
+                                                        stid = 'bnJHU2M1SE1rUDJJc28vZkRNTUdQQT09';
+                                                        pp.type = 'text/javascript';
+                                                        pp.async = true;
+                                                        pp.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 's01.live2support.com/dashboardv2/chatwindow/';
+                                                        ppr.parentNode.insertBefore(pp, ppr);
+                                                    })();
+                                                </script>
+</body>
+
+</html>

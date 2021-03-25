@@ -1,0 +1,23 @@
+.navbar.navbar-light.navbar-expand-md.navigation-clean.mainNav {
+}
+
+.card-link.viewRent {
+  background-color: grey;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+  padding: 8px 12px;
+  border-radius: 3px;
+  margin: 5px;
+  color: white;
+  /*border: 1px solid black;*/
+}
+
+.card-link.viewRent:hover {
+  background-color: beige;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 3px;
+  color: black;
+  /*border: 1px solid black;*/
+  transform: scale(1.1);
+}
+

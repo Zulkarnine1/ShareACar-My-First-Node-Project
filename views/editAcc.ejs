@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Edit account</title>
+    <link rel="icon" href="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595569757/shareCarTemp/Webp.net-resizeimage_dr3tkt.jpg">
+    <link rel="stylesheet" href="editAccAssets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="homeAssets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="editAccAssets/css/styles.css">
+    <link rel="stylesheet" href="homeAssets/css/Pretty-Footer.css">
+    <link rel="stylesheet" href="loggedAssets/css/sharenav.css">
+    <link rel="stylesheet" href="loggedAssets/css/styles.css">
+    <link rel="stylesheet" href="adminHAssets/css/logged.css">
+    <link rel="stylesheet" href="adminHAssets/css/styles.css">
+</head>
+
+<body>
+     <% if(auth==true){ %>
+    <% if(user.admin==true){ %>
+<%-include("partials/header2") -%>
+<% }else{ %>
+<%-include("partials/header1") -%>
+<% } %>
+        <% }else{ %>
+    <%-include("partials/header") -%>
+    <% } %>
+    <div style="margin-top: 30px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center">Edit Account information</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mx-auto mclm" style="margin-top: 30px;max-width: 400px;padding-bottom: 20px;">
+                    <form >
+                        <div class="text-center mx-auto" style="width: 300px;">
+                            <div class="d-block"><label><b>Profile image:</b></label><img src="<%=user.profileImg%>" id="img1" style="width: 150px;height: 150px;margin: 10px;"></div>
+
+                            <input name="img1" onchange="readURL(this);" type="file" id="file1" hidden>
+
+                            <label class="text-center selBtn" for="file1">Select/change</label></div>
+                        <hr>
+                        <div class="mx-auto" style="width: 300px;"><label style="margin-right: 5px;width: 100px;">Name: &nbsp;</label>
+
+
+                            <input name="name" placeholder="<%=user.name%>" id="nameIn" class="form-control" type="text">
+
+                        </div>
+                        <div class="mx-auto" style="width: 300px;"><label style="margin-right: 5px;width: 100px;">Mobile no.&nbsp;</label>
+
+
+                            <input name="mobile" placeholder="<%=user.mobileNum%>" id="mnumIn" class="form-control" type="text">
+
+
+                        </div>
+                        <hr>
+                        <div class="text-center mx-auto" style="width: 300px;">
+                            <% if(!(user.license==undefined)){ %>
+                            <div class="d-block"><label><b>License image:</b></label><img id="img2" src="<%=user.license%>" style="width: 250px;height: auto;margin: 10px;"></div>
+                            <% }else{%>
+                            <div class="d-block"><label><b>License image:</b></label><img id="img2" src="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595387879/shareCarTemp/112815904-stock-vector-no-image-available-icon-flat-vector-illustration_raena9.jpg" style="width: 250px;height: auto;margin: 10px;"></div>
+                            <% } %>
+                            <input onchange="readURL1(this);" type="file" name="img2" id="file2" hidden>
+
+                            <label class="text-center selBtn" for="file2">Select/change</label></div>
+                        <div class="text-center mx-auto" style="width: 200px;"><button id="submitBtn" data-user="<%= user._id%>" data-file1="" data-file2="" data-name="" data-mnum="" class="btn btn-primary" type="button">Save changes</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%-include("partials/footer") -%>
+    <script src="editAccAssets/js/jquery.min.js"></script>
+    <script src="homeAssets/js/common.js"></script>
+    <script src="editAccAssets/js/script.js"></script>
+    <script src="editAccAssets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Rent end</title>
+    <link rel="icon" href="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595569757/shareCarTemp/Webp.net-resizeimage_dr3tkt.jpg">
+    <link rel="stylesheet" href="../rentEndAssets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../rentEndAssets/css/Animated-Type-Heading.css">
+    <link rel="stylesheet" href="../rentEndAssets/css/styles.css">
+    <link rel="stylesheet" href="../loggedAssets/css/sharenav.css">
+    <link rel="stylesheet" href="../loggedAssets/css/styles.css">
+    <link rel="stylesheet" href="../adminHAssets/css/logged.css">
+    <link rel="stylesheet" href="../adminHAssets/css/styles.css">
+</head>
+    <% if(auth==true){ %>
+    <% if(user.admin==true){ %>
+<%-include("partials/header2") -%>
+<% }else{ %>
+<%-include("partials/header1") -%>
+<% } %>
+        <% }else{ %>
+    <%-include("partials/header") -%>
+    <% } %>
+<body>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 30px;">               <div class="caption v-middle text-center">
+                    <h1 class="cd-headline clip">
+                        <span class="blc">Thank you, | </span>
+                        <span class="cd-words-wrapper">
+                          <b class="is-visible">for choosing us.</b>
+                          <b>for using our service.</b>
+                          <b>for cooperating with us.</b>
+                        </span>
+                    </h1>
+                </div></div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 30px;">
+                    <div class="form-group">
+                        <form action="/postOil/<%= rent._id %>" method="POST">
+                            <div class="mx-auto" style="width: 300px;"><label style="margin-right: 10px;">Resource(Oil/charge) left:</label><input class="form-control" type="number" name="oilleft"><button class="btn btn-primary mx-auto" type="submit" style="background-color: rgb(31,31,31);margin-top: 5px;">Submit to close order</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../rentEndAssets/js/jquery.min.js"></script>
+    <script src="../homeAssets/js/common.js"></script>
+    <script src="../rentEndAssets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../rentEndAssets/js/Animated-Type-Heading.js"></script>
+</body>
+
+</html>

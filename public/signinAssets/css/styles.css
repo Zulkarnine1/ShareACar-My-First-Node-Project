@@ -1,0 +1,20 @@
+.btn.btn-info.mt-2 {
+  border: 0px;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+img {
+}
+
+@media (max-width: 575px) {
+  .logo {
+    width: 200px;
+  }
+}
+
+@media (min-width: 576px) {
+  .logo {
+    width: 317px;
+  }
+}
+

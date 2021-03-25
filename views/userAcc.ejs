@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Account</title>
+    <link rel="icon" href="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595569757/shareCarTemp/Webp.net-resizeimage_dr3tkt.jpg">
+    <link rel="stylesheet" href="userAccAssets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aldrich">
+    <link rel="stylesheet" href="userAccAssets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="userAccAssets/css/profile.css">
+    <link rel="stylesheet" href="userAccAssets/css/shareNav.css">
+    <link rel="stylesheet" href="userAccAssets/css/styles.css">
+     <link rel="stylesheet" href="loggedAssets/css/sharenav.css">
+    <link rel="stylesheet" href="loggedAssets/css/styles.css">
+    <link rel="stylesheet" href="adminHAssets/css/logged.css">
+    <link rel="stylesheet" href="adminHAssets/css/styles.css">
+</head>
+
+<body>
+    <% if(auth==true){ %>
+    <% if(user.admin==true){ %>
+<%-include("partials/header2") -%>
+<% }else{ %>
+<%-include("partials/header1") -%>
+<% } %>
+        <% }else{ %>
+    <%-include("partials/header") -%>
+    <% } %>
+
+
+    <div style="margin-top: 20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12"><div>
+<div class="container">
+    <div class="fb-profile">
+        <img align="left" class="fb-image-lg" src="userAccAssets/img/Joe-D-Minneapolis-Iconography-No.-4-Skyscrapers_cb1826fb2fb0eb7552d7bb53b85ea0f3%20(1).jpg" alt="Profile image example"/>
+        <img align="left" class="fb-image-profile thumbnail" src="<%= user1.profileImg %>" alt="Profile image example"/>
+        <div class="fb-profile-text">
+            <h1><%= user1.name %></h1>
+            <p></p>
+        </div>
+    </div>
+</div> <!-- /container -->  
+
+</div></div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 30px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Account Information</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 30px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th><%= user1.name %></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Email</td>
+                                    <td><%= user1.username %></td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile no.</td>
+                                    <td><%= user1.mobileNum %></td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Birth</td>
+                                    <td><%= user1.dateofbirth %></td>
+                                </tr>
+                                <tr>
+                                    <td>License</td>
+                                    <% if(user1.license==undefined){ %>
+                                    <td><span style="color: red;">Please upload license image by editing and verify account.</span></td>
+                                    <% }else{ %>
+                                    <td><img src="<%= user1.license %>" style="width: 200px;"></td>
+                                    <% } %>
+                                </tr>
+                                <tr>
+                                    <td>Credits</td>
+                                    <td>$<%= user1.credit %></td>
+                                </tr>
+                                <tr>
+                                    <td>Verification</td>
+                                    <% if(user1.ver==true){ %>
+                                    <td><i class="fa fa-check" style="color: green;"></i> verified</td>
+                                    <% }else{ %>
+                                    <td> <i class="fa fa-close" style="color: red;"></i> not verified</td>
+                                    <% } %>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><a class="btn btn-dark" href="/editAccount" type="button" style="padding-right: 20px;padding-left: 20px;color: white;">Edit</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Your rents</h2>
+                    <% if(rents.length==0){%>
+                    <img src="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595393259/shareCarTemp/background-1776015_1920_hfrw3i.jpg" style="width: 80%;">
+                    <% }else{ %>
+                    <% rents.reverse().forEach(function(rent){ %>
+                    <% var mycar; %>
+                    <% cars.forEach(function(car){ %>
+                    <% if(rent.car==car._id){mycar=car}else{} %>
+                    <% }) %>
+
+                    <div>
+                        <div class="row" style="margin:0px;padding:20px;">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" style="padding: 0px;">
+                                <div style="background-image: url(&quot;<%= mycar.img1 %>&quot;);height: 25vh;background-repeat: no-repeat;background-size: cover;background-position: center;"></div>
+                            </div>
+                            <div class="w-100 d-sm-block d-md-none d-lg-none d-xl-none"></div>
+                            <div class="col" style="padding:0px;">
+                                <div class="card">
+                                    <div class="card-body" style="height: auto;min-height: 25vh;">
+                                        <h4 class="card-title">ID: <%= rent._id %></h4>
+                                        <% if(rent.rentClosed==false){ %>
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;font-size: 18px;">Rent Status: In progress</h6>
+                                        <% }else{ %>
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;font-size: 18px;">Rent Status: Closed</h6>
+                                        <% } %>
+                                        
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;margin-bottom: 10px;">Car: <%= mycar.name %></h6>
+                                        <% let start = new Date(rent.startTime) %>
+                                        <% let end = new Date(rent.endTime) %>
+                                        <% let dur = new Date(end - start);  %>
+                                        
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;margin-bottom: 10px;">Rent Duration: <%= dur.getHours() %> hours</h6>
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;">Rent Cost: $<%= rent.cost%></h6>
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;">Date rented: <%= start.toLocaleDateString() %><br></h6><a class="card-link viewRentBtn" href="/rentStatus/<%= rent._id %>">View rent</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="userAccAssets/js/jquery.min.js"></script>
+    <script src="homeAssets/js/common.js"></script>
+    <script src="userAccAssets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean mainNav">
+        <div class="container"><a class="navbar-brand" href="/" style="width: 300px;min-width: 220px;margin-right: -2rem!important;"><img class="logo" src="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595278397/shareCarTemp/WeChat_Screenshot_20200718122206_krtebw.png"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon" style="background-image: url(&quot;https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595276367/shareCarTemp/425-4251166_menu-bar-icon-white-clipart_vtzlgv.png&quot;);"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navcol-1" style="width: 608px;">
+                <form class="form-inline search-form">
+                    <div class="input-group">
+                        <div class="input-group-prepend"><span style="background-color: beige;" class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" type="text" placeholder="Car id, name, or catagory" id="searchInput">
+                        <div class="input-group-append"><button id="searchBtn" class="btn btn-light" type="button" style="background-color: beige;">Search </button></div>
+                    </div>
+                </form>
+                <div class="d-print-none d-sm-block d-md-none d-lg-none d-xl-none" align="center"><img class="mobProImg" src="<%= user.profileImg %>" style="width: 100px;height: 100px;" align="center"><label class="d-block d-sm-block" style="color: white;">Hi, <%= user.name %></label></div>
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link d-print-none d-sm-block d-md-none d-lg-none d-xl-none" href="/account" style="margin-top: 10px;"><i class="fa fa-user"></i> My Account</a><a class="nav-link" href="/myrents"><i class="fa fa-suitcase"></i> My rents</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link d-print-none d-sm-block d-md-none d-lg-none d-xl-none" href="/signout"><i class="fa fa-arrow-right"></i> Sign out</a></li>
+                </ul>
+        </div>
+        <div class="dropdown d-none d-print-block d-sm-none d-md-block d-lg-block d-xl-block"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#" style="width: 50px;height: 50px;max-width: 50px;max-height: 50px;color: white;"><img class="d-inline-block proImg" src="<%= user.profileImg %>" style="width: 50px;height: 50px;margin-right: 10px;">Hi, <%= user.name %></a>
+            <div
+                class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="/account"><i class="fa fa-user"></i> My Account</a><a class="dropdown-item" role="presentation" href="/signout"><i class="fa fa-arrow-right"></i> Sign out</a></div>
+        </div>
+        </div>
+    </nav>
+   

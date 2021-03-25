@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Admin|Rents</title>
+    <link rel="icon" href="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595569757/shareCarTemp/Webp.net-resizeimage_dr3tkt.jpg">
+    <link rel="stylesheet" href="../adminRentsAssets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../adminRentsAssets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../adminRentsAssets/css/adminHead.css">
+    <link rel="stylesheet" href="../adminRentsAssets/css/rentUser2.css">
+    <link rel="stylesheet" href="../adminRentsAssets/css/styles.css">
+    <link rel="stylesheet" href="../homeAssets/css/Pretty-Footer.css">
+    <link rel="stylesheet" href="../userAccAssets/css/styles.css">
+</head>
+
+<body>
+     <% if(auth==true){ %>
+    <% if(user.admin==true){ %>
+<%-include("partials/header2") -%>
+<% }else{ %>
+<%-include("partials/header1") -%>
+<% } %>
+        <% }else{ %>
+    <%-include("partials/header") -%>
+    <% } %>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="margin: 30px;">
+                    <h1 class="text-center border rounded" style="background-color: rgb(248,246,246);padding-top: 10px;padding-bottom: 10px;">Rents</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <% rents.reverse().forEach(function(rent){ %>
+                     
+                    <% var mycar; %>
+                    <% cars.forEach(function(car){ %>
+                    <% if(rent.car==car._id){mycar=car}else{} %>
+                    <% }) %>
+
+                    <div>
+                        <div class="row" style="margin:0px;padding:20px;">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" style="padding: 0px;">
+                                <div style="background-image: url(&quot;<%= mycar.img1 %>&quot;);height: 25vh;background-repeat: no-repeat;background-size: cover;background-position: center;"></div>
+                            </div>
+                            <div class="w-100 d-sm-block d-md-none d-lg-none d-xl-none"></div>
+                            <div class="col" style="padding:0px;">
+                                <div class="card">
+                                    <div class="card-body" style="height: auto;min-height: 25vh;">
+                                        <h4 class="card-title">ID: <%= rent._id %></h4>
+                                        <% if(rent.rentClosed==false){ %>
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;font-size: 18px;">Rent Status: In progress</h6>
+                                        <% }else{ %>
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;font-size: 18px;">Rent Status: Closed</h6>
+                                        <% } %>
+                                        
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;margin-bottom: 10px;">Car: <%= mycar.name %></h6>
+                                        <% let start = new Date(rent.startTime) %>
+                                        <% let end = new Date(rent.endTime) %>
+                                        <% let dur = new Date(end - start);  %>
+                                        
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;margin-bottom: 10px;">Rent Duration: <%= dur.getHours() %> hours</h6>
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;">Rent Cost: $<%= rent.cost%></h6>
+                                        <h6 class="text-muted card-subtitle mb-2" style="color: rgb(8,8,8)!important;">Date rented: <%= start.toLocaleDateString() %><br></h6><a class="card-link viewRentBtn" href="/rentStatus/<%= rent._id %>">View rent</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%-include("partials/footer") -%>
+    <script src="../adminRentsAssets/js/jquery.min.js"></script>
+    <script src="../homeAssets/js/common.js"></script>
+    <script src="../adminRentsAssets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

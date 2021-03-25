@@ -1,0 +1,126 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Edit Car</title>
+    <link rel="icon" href="https://res.cloudinary.com/south-china-university-of-technology/image/upload/v1595569757/shareCarTemp/Webp.net-resizeimage_dr3tkt.jpg">
+    <link rel="stylesheet" href="../addCarAssets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../homeAssets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../addCarAssets/css/editForm.css">
+    <link rel="stylesheet" href="../addCarAssets/css/styles.css">
+    <link rel="stylesheet" href="../homeAssets/css/Pretty-Footer.css">
+    <link rel="stylesheet" href="../loggedAssets/css/sharenav.css">
+    <link rel="stylesheet" href="../loggedAssets/css/styles.css">
+    <link rel="stylesheet" href="../adminHAssets/css/logged.css">
+    <link rel="stylesheet" href="../adminHAssets/css/styles.css">
+</head>
+
+<body>
+    <% if(auth==true){ %>
+    <% if(user.admin==true){ %>
+<%-include("partials/header2") -%>
+<% }else{ %>
+<%-include("partials/header1") -%>
+<% } %>
+        <% }else{ %>
+    <%-include("partials/header") -%>
+    <% } %>
+        
+    <div style="min-height: 50vh;text-align: center;" class="myLoader"><div class="lds-hourglass "></div><h3 style="margin-top: 150px;text-align: center;">Updating car, Please wait...</h3></div>
+    <div>
+        <div class="container infoCon">
+            <div class="row">
+                <div class="col-md-12 mx-auto mclm " style="margin-top: 30px;/*max-width: 400px;*/padding-bottom: 20px;">
+                    <h3 style="margin: 20px;">Edit car</h3>
+                    <form>
+                        <hr>
+                        <div class="mx-auto" style="width: 300px;"><label style="margin-right: 5px;width: 100px;">Car name: &nbsp;</label>
+
+                            <input class="form-control" type="text" id="name" placeholder="<%= car.name%>"></div>
+                        <div class="mx-auto" style="width: 300px;"><label style="margin-right: 5px;width: 100px;">Brand:&nbsp;</label>
+
+                            <input class="form-control" type="text" id="brand" placeholder="<%= car.brand%>"></div>
+                        <div class="mx-auto" style="width: 300px;"><label style="margin-right: 5px;width: 100px;">Model:</label>
+
+                            <input class="form-control" type="text" id="model" placeholder="<%= car.model%>"></div>
+                        <div class="mx-auto" style="width: 300px;"><label style="margin-right: 5px;width: 100px;">Catagory</label>
+
+                            <select class="form-control" id="catagory">
+
+                            <optgroup label="Select catagory">
+                                <option value="" selected=""></option>
+                                <option value="Electric" >Electric</option>
+                                <option value="coupe">coupe</option>
+                                <option value="roadster">roadster</option><option value="SUV">SUV</option>
+                                <option value="Sedan">Sedan</option><option value="Sports">Sports</option>
+                                <option value="Van">Van</option>
+                            </optgroup></select></div>
+                        <div
+                            class="mx-auto" style="width: 300px;"><label style="margin-right: 5px;width: 100px;">Price($/hour)</label>
+
+                            <input class="form-control" type="number" id="price" placeholder="<%= car.price%>">
+                            <div class="mx-auto" style="width: 300px;"><label style="margin-right: 5px;width: 100px;">Mileage unit</label>
+
+
+                                <select class="form-control" id="unit"><optgroup label="Select unit">
+                                    <option value="" selected=""></option>
+                                    <option value="KM/percent charge" >KM/percent charge</option><option value="KM/L">KM/L</option></optgroup></select></div>
+                </div>
+                <div class="mx-auto" style="width: 300px;"><label style="margin-right: 5px;width: 150px;">Mileage(per unit)</label>
+
+
+                    <input class="form-control" type="number" id="mileage" placeholder="<%= car.mileage%>">
+                    <div class="mx-auto" style="width: 300px;"><label style="margin-right: 5px;width: 100px;">Resource type<br>(oil/charge)</label>
+
+
+                        <select class="form-control" id="resType">
+
+                            <optgroup label="Select type"><option value="" selected=""></option><option value="Charge">Charge(Electric)</option><option value="Oil">Oil</option></optgroup></select></div>
+                </div>
+                <div class="mx-auto" style="width: 300px;"><label style="margin-right: 5px;width: 150px;">Resource left:</label>
+
+
+                    <input class="form-control" type="number" id="resource" placeholder="<%= car.resourceLeft%>"></div>
+                <hr>
+                <div class="mx-auto" style="width: 50%;"><label style="margin-right: 5px;width: 100px;font-size: 20px;"><strong>About car:</strong></label>
+
+
+                    <textarea class="form-control" style="height: 200px;" maxlength="2000" id="about" placeholder="<%= car.about%>"></textarea></div>
+                <div class="mx-auto" style="margin-top: 30px;width: fit-content;">
+                    <div class="text-center d-inline-block mx-auto" style="width: 300px;">
+
+                        <div class="d-block"><label style="font-size: 20px;"><strong>Image 1:</strong></label><img src="<%= car.img1 %>" id="fileImg1" style="width: 250px;height: auto;margin: 10px;"></div><input type="file" id="img1" onchange="readURL(this);" hidden><label for="img1" class="text-center selBtn">Select/Change</label></div>
+                    <div class="text-center d-inline-block mx-auto"
+                        style="width: 300px;">
+                        <div class="d-block"><label style="font-size: 20px;"><strong>Image 2:</strong></label><img src="<%= car.img2 %>" id="fileImg2" style="width: 250px;height: auto;margin: 10px;"></div><input type="file" id="img2" onchange="readURL1(this);"  hidden><label for="img2" class="text-center selBtn">Select/Change</label></div>
+                    <div class="text-center d-inline-block mx-auto"
+                        style="width: 300px;">
+                        <div class="d-block"><label style="font-size: 20px;"><strong>Image 3:</strong></label><img src="<%= car.img3 %>" id="fileImg3" style="width: 250px;height: auto;margin: 10px;"></div><input type="file" id="img3" onchange="readURL2(this);"  hidden><label for="img3" class="text-center selBtn">Select/Change</label></div>
+                </div>
+                <div class="mx-auto" style="margin-top: 30px;width: fit-content;">
+                    <div class="text-center d-inline-block mx-auto" style="width: 300px;">
+                        <div class="d-block"><label style="font-size: 20px;"><strong>Image 4:</strong></label><img src="<%= car.img4 %>" id="fileImg4" style="width: 250px;height: auto;margin: 10px;"></div><input type="file" id="img4" onchange="readURL3(this);"  hidden><label for="img4" class="text-center selBtn">Select/Change</label></div>
+                    <div class="text-center d-inline-block mx-auto"
+                        style="width: 300px;">
+                        <div class="d-block"><label style="font-size: 20px;"><strong>Image 5:</strong></label><img src="<%= car.img5 %>" id="fileImg5" style="width: 250px;height: auto;margin: 10px;"></div><input type="file" id="img5" onchange="readURL4(this);"  hidden><label for="img5" class="text-center selBtn">Select/Change</label></div>
+                    <div class="text-center d-inline-block mx-auto"
+                        style="width: 300px;">
+                        <div class="d-block"><label style="font-size: 20px;"><strong>Image 6:</strong></label><img src="<%= car.img6 %>" id="fileImg6" style="width: 250px;height: auto;margin: 10px;"></div><input type="file" id="img6" onchange="readURL5(this);"  hidden><label for="img6" class="text-center selBtn">Select/Change</label></div>
+                </div>
+                <hr>
+                <div class="text-center mx-auto" style="width: 200px;"><button  id="submitBtn" class="btn btn-dark" type="button" style="width: 200px;height: 70px;font-size: 20px;margin-top: 20px;" data-user="<%=user.id%>" data-car="<%=car._id%>" data-file1="" data-file2="" data-file3="" data-file4="" data-file5="" data-file6="" >Save changes</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <%-include("partials/footer") -%>
+    <script src="../addCarAssets/js/jquery.min.js"></script>
+    <script src="../addCarAssets/js/script1.js"></script>
+    <script src="../homeAssets/js/common.js"></script>
+    <script src="../addCarAssets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

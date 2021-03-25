@@ -1,0 +1,22 @@
+.mclm {
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+.selBtn{
+
+	border:2px solid grey;
+	border-radius: 5px;
+	padding:5px 16px;
+	transition: 200ms;
+	color: black;
+	background-color: white;
+}
+
+.selBtn:hover{
+
+	transform: scale(1.1);
+	transition: 200ms;
+	color: black;
+	background-color: #c9c8c9
+}
