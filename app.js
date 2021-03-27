@@ -27,7 +27,7 @@ app.use(express.static("public"));
 
 //session init
 app.use(session({
-    secret: "share A car secret",
+    secret: "",
     resave: false,
     saveUninitialized: false
 
