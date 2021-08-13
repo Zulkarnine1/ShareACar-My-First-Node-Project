@@ -27,7 +27,7 @@ app.use(express.static("public"));
 
 //session init
 app.use(session({
-    secret: "share A car secret",
+    secret: "",
     resave: false,
     saveUninitialized: false
 
@@ -348,7 +348,7 @@ app.get("/rentClose/:rentID", async function(req, res){
 
 		let rent = await mainApp.getOneDoc(Rent, req.params.rentID);
 
-		if(rent.rentClosed==false && rent.renter==req.user.id){
+		if(rent.rentClosed==false){
 		let resLeft = Number(req.session.resLeft);
 		console.log("Get method:" + resLeft);
 		let userUp = await mainApp.updateDocObj(User, rent.renter, {occupied:false});
