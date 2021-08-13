@@ -5,7 +5,7 @@
 ## Contents
 
 1. Introduction
-2. Features
+2. [Features](./README.md##Features)
 3. General Architecture
 4. Database Design
 5. App Flowchart
