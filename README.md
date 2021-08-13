@@ -4,12 +4,12 @@
 
 ## Contents
 
-1. Introduction
+1. [Introduction](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#introduction)
 2. [Features](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#features)
-3. General Architecture
-4. Database Design
-5. App Flowchart
-6. Challenges Faced, Critical Problems Solved and Experience Gained
+3. [General Architecture](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#general-application-architecture)
+4. [Database Design](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#database-design)
+5. [App Flowchart](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#app-flowchart)
+6. [Challenges Faced, Critical Problems Solved and Experience Gained](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#challenges-faced-critical-problems-solved-and-experience-gained)
 
 ## Introduction
 
