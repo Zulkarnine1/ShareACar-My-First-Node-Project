@@ -5,7 +5,7 @@
 ## Contents
 
 1. Introduction
-2. [Features](./README.md##Features)
+2. [Features](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#features)
 3. General Architecture
 4. Database Design
 5. App Flowchart
