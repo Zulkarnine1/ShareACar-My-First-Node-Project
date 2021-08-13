@@ -348,7 +348,7 @@ app.get("/rentClose/:rentID", async function(req, res){
 
 		let rent = await mainApp.getOneDoc(Rent, req.params.rentID);
 
-		if(rent.rentClosed==false){
+		if(rent.rentClosed==false && rent.renter==req.user.id){
 		let resLeft = Number(req.session.resLeft);
 		console.log("Get method:" + resLeft);
 		let userUp = await mainApp.updateDocObj(User, rent.renter, {occupied:false});

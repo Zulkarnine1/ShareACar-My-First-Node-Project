@@ -10,13 +10,13 @@ cloudinary.config({
 module.exports.uploadFile = uploadFile;
 function uploadFile(file, options){
 
-	return new Promise( function(resolve){
+	return new Promise( function(resolve, reject){
 
 	cloudinary.uploader.upload(file, options, function(error, result) {
 
 		if(error){
 			console.log("Not uploading");
-			resolve({bool:false, data:error})
+			reject(error)
 
 		}else{
 			console.log("Uploading");
