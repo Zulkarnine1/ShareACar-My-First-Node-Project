@@ -6,10 +6,11 @@
 
 1. [Introduction](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#introduction)
 2. [Features](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#features)
-3. [General Architecture](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#general-application-architecture)
-4. [Database Design](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#database-design)
-5. [App Flowchart](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#app-flowchart)
-6. [Challenges Faced, Critical Problems Solved and Experience Gained](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#challenges-faced-critical-problems-solved-and-experience-gained)
+3. [Installation](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#installation)
+4. [General Architecture](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#general-application-architecture)
+5. [Database Design](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#database-design)
+6. [App Flowchart](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#app-flowchart)
+7. [Challenges Faced, Critical Problems Solved and Experience Gained](https://github.com/Zulkarnine1/ShareACar/blob/master/README.md#challenges-faced-critical-problems-solved-and-experience-gained)
 
 ## Introduction
 
@@ -33,9 +34,6 @@ The tech stack for this application mainly comprised of:
 4. Mongoose (ODM)
 5. EJS(templating)
 
-<!-- For take away -->
-<!-- The file structuring for this project wasn't so good as it was my first time, but as I learnt from my mistakes, it can be seen in the other projects how I organized the files. -->
-
 ## Features
 
 ### Application Features (_User Based_)
@@ -52,6 +50,42 @@ The tech stack for this application mainly comprised of:
 1. The cars and the users can be searched as this feature is implemented with mongo aggregated search.
 2. All the media such as car images, user's avatar and license are stored in a cloud platform called cloudinary and this is done using the cloudinary API and express-fileupload.
 3. Session-based authentication with PassportJs.
+
+## Installation
+
+In this section I will describe the installation process and the environment setup needed to run the application locally. However, one must have node installed in the machine in order to follow the steps below.
+
+The code base can be cloned either by downloading as zip from github or using the following command-
+
+```sh
+git clone https://github.com/Zulkarnine1/ShareACar-My-First-Node-Project.git
+```
+
+Then the dependencies can be installed using the following command-
+
+```sh
+npm i
+```
+
+After the dependencies are install a ".env" file needs to be created the following environment variables are to be added in the file-
+
+```sh
+APP_SECRET=
+MONGO_KEY=
+CLOUDINARY_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+```
+
+- The APP_SECRET is used for the session secret.
+- The MONGO_KEY should be the link to the database with the auth credentials added in it.
+- The CLOUDINARY credentails can be obtained from the cloudinary dashboard by opening a free account.
+
+Finally, the application can be run by going to the root directory in terminal and executing the following command:
+
+```sh
+node app.js
+```
 
 ## General Application Architecture
 
