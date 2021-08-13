@@ -8,6 +8,7 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const findOrCreate = require('mongoose-findorcreate');
+require("dotenv").config()
 //my apps
 const databaseApp = require(__dirname + "/subApps/databaseSchema");
 const signUpApp = require(__dirname + "/subApps/signup");
@@ -27,7 +28,7 @@ app.use(express.static("public"));
 
 //session init
 app.use(session({
-    secret: "",
+    secret: process.env.APP_SECRET || "123xyz",
     resave: false,
     saveUninitialized: false
 
@@ -37,7 +38,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Please apply your mongo key here
-const connect = mongoose.connect("", { useNewUrlParser: true, useUnifiedTopology: true });
+const connect = mongoose.connect(process.env.MONGO_KEY, { useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
