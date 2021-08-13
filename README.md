@@ -67,7 +67,7 @@ Then the dependencies can be installed using the following command-
 npm i
 ```
 
-After the dependencies are install a ".env" file needs to be created the following environment variables are to be added in the file-
+After the dependencies are installed a ".env" file needs to be created the following environment variables are to be added in the file-
 
 ```sh
 APP_SECRET=
