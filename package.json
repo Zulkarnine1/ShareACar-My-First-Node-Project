@@ -4,7 +4,8 @@
   "description": "Its a car rental app",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
   },
   "author": "Zulkarnine",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "lodash": "^4.17.19",
     "mongoose": "^5.9.25",
     "mongoose-findorcreate": "^3.0.0",
+    "nodemon": "^2.0.12",
     "passport": "^0.4.1",
     "passport-local-mongoose": "^6.0.1"
   }

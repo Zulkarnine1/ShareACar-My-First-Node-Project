@@ -1,80 +1,44 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const ejs = require("ejs");
-const _ = require("lodash");
 const mongoose = require('mongoose');
 const ObjectId = require('mongoose').Types.ObjectId;
-const session = require('express-session');
-const passport = require('passport');
-const passportLocalMongoose = require('passport-local-mongoose');
-const findOrCreate = require('mongoose-findorcreate');
+
 require("dotenv").config()
-//my apps
-const databaseApp = require(__dirname + "/subApps/databaseSchema");
+
+// Local packages
+const passportConfig = require("./configs/passport-config")
 const signUpApp = require(__dirname + "/subApps/signup");
 const mainApp = require(__dirname + "/subApps/main");
 const cloudinary = require(__dirname + "/subApps/cloudinary");
+
 const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use( bodyParser.json({limit: '50mb'}) );
-app.use(bodyParser.urlencoded({
+app.use( express.json({limit: '50mb'}) );
+app.use( express.urlencoded({
   limit: '100mb',
   extended: false,
   parameterLimit:500000
 }));
+
 app.use(express.static("public"));
 
-//session init
-app.use(session({
-    secret: process.env.APP_SECRET || "123xyz",
-    resave: false,
-    saveUninitialized: false
-
-}))
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Please apply your mongo key here
-const connect = mongoose.connect(process.env.MONGO_KEY, { useNewUrlParser: true, useUnifiedTopology: true });
-
-mongoose.set('useCreateIndex', true);
-mongoose.set('useFindAndModify', false);
-const userSchema = new mongoose.Schema(databaseApp.getUserSchema());
-const carSchema = new mongoose.Schema(databaseApp.getCarSchema());
-const rentSchema = new mongoose.Schema(databaseApp.getRentSchema());
-
-
-
-
-userSchema.plugin(passportLocalMongoose);
-userSchema.plugin(findOrCreate);
-
-
-const User = new mongoose.model("users", userSchema);
-const Car = new mongoose.model("cars", carSchema);
-const Rent = new mongoose.model("rents", rentSchema);
-
-
-
-passport.use(User.createStrategy());
-
-passport.serializeUser(function(user, done) {
-    done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
-        done(err, user);
-    });
-});
-
+// Configure passport
+passportConfig(app)
 
 // 								===========================
 // 								===========================
-// 									Maintainence section
+// 									Temporary section
+// 								===========================
+// 								===========================
+
+const User = require("./models/user")
+const Car = require("./models/car")
+const Rent = require("./models/rent")
+
+// 								===========================
+// 								===========================
+// 									Maintenance section
 // 								===========================
 // 								===========================
 
@@ -1426,13 +1390,25 @@ app.post("/userEditAcc/:userID", async function(req, res) {
 });
 
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-    port = 8888;
-}
+// Please apply your mongo key here
+mongoose.connect(process.env.MONGO_KEY, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
+	console.log("Connected to DB successfully.")
+	let port = process.env.PORT;
+	if (port == null || port == "") {
+		port = 8888;
+	}
 
-app.listen(port, function() {
+	app.listen(port, function() {
 
-    console.log("Server is up and running")
+		console.log("Server is up and running")
 
-});
+	});
+
+}).catch((e)=>{
+	console.log("Failed to connect DB.")
+	console.log(e);
+	
+})
+
+
+
