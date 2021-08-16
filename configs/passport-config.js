@@ -1,6 +1,6 @@
 const passport = require('passport');
 const User = require("../models/user")
-module.exports = function(app){
+exports.passportConfig = function(app){
 
 
 app.use(passport.initialize());
@@ -21,3 +21,5 @@ passport.deserializeUser(function(id, done) {
 });
 
 }
+
+exports.passport  = passport

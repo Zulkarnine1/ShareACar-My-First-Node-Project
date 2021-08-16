@@ -1,16 +1,27 @@
 const express = require("express");
+const session = require("express-session")
 const mongoose = require('mongoose');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 require("dotenv").config()
 
 // Local packages
-const passportConfig = require("./configs/passport-config")
-const signUpApp = require(__dirname + "/subApps/signup");
-const mainApp = require(__dirname + "/subApps/main");
-const cloudinary = require(__dirname + "/subApps/cloudinary");
+const {passportConfig,passport} = require("./configs/passport-config")
+const userRoutes = require("./routes/userRoutes")
+const carRoutes = require("./routes/carRoutes")
+const adminRoutes = require("./routes/adminRoutes")
+const mainApp = require(__dirname + "/utility/main");
+const cloudinary = require(__dirname + "/utility/cloudinary");
+const HttpError = require("./models/http-error")
 
 const app = express();
+
+app.use(session({
+    secret: process.env.APP_SECRET || "123xyz",
+    resave: false,
+    saveUninitialized: false
+
+}))
 
 app.set('view engine', 'ejs');
 
@@ -93,39 +104,6 @@ app.get("/", async function(req, res){
 	
 });
 
-
-app.get("/car/:carID", async function(req, res){
-
-		let car = await mainApp.getOneDoc(Car, req.params.carID);
-
-		if(car==undefined){
-
-			res.render("error",{message:"No such car exists"})
-		}else{
-		if (req.isAuthenticated()) {
-
-		let user = await mainApp.processUser(req.user);
-		let homePack = {
-			car:car,
-			user:user,
-			auth:true
-
-		}
-		res.render("carDis", homePack)
-
-		}else{
-
-		let homePack = {
-			car:car,
-			auth:false
-
-		}
-		res.render("carDis", homePack)
-
-		}
-	}
-	
-});
 
 
 // all user rents page
@@ -282,7 +260,7 @@ app.get("/rentStatus/:rentID", async function(req, res){
 	}else{
 
 
-		res.render("error",{message:"Unauthorized"})
+		res.render("error",{message:"Unauthorized 1"})
 	}
 		}else{
 
@@ -337,151 +315,6 @@ app.get("/rentClose/:rentID", async function(req, res){
 });
 
 
-app.get("/account", async function(req, res){
-
-	if (req.isAuthenticated()) {
-
-		
-		let rents = [];
-		let cars = [];
-		let user = await mainApp.processUser(req.user);
-
-		for(let i=0;i<req.user.rents.length;i++){
-
-			let rentID =  req.user.rents[i];
-			let rent = await mainApp.getOneDoc(Rent, rentID);
-			rents.push(rent)
-		}
-
-		for(let i=0;i<req.user.rents.length;i++){
-
-			let carID =  rents[i].car;
-			let car = await mainApp.getOneDoc(Car, carID);
-			
-			cars.push(car)
-		}
-
-		let accountPack={
-			user:user,
-			user1:req.user,
-			auth:true,
-			rents:rents,
-			cars:cars
-
-		}
-		res.render("userAcc",accountPack)
-
-
-	}else{
-
-		res.redirect("/signin")
-
-	}
-
-
-	
-});
-
-
-app.get("/editaccount", function(req, res){
-
-	if (req.isAuthenticated()) {
-
-	let accountPack={
-
-			user:req.user,
-			auth:true
-
-		}
-	res.render("editAcc", accountPack)
-	
-	}else{
-
-		res.redirect("/signin")
-
-	}
-	
-});
-
-
-app.get("/search/:query", async function(req, res){
-
-	let query = req.params.query;
-	var result = [];
-	
-	
-	if(ObjectId.isValid(query.toString())){
-		
-	let car = await mainApp.searchID(Car, query);
-	if(car.bool==true){
-
-
-		result.push(car.doc);
-
-	}
-		
-	}
-	
-
-
-	var aggRet = await mainApp.aggSearch(Car, query.toString());
-	result = result.concat(aggRet);
-
-
-
-	
-
-
-
-	if (req.isAuthenticated()) {
-		let user = await mainApp.processUser(req.user);
-	let searchPack={
-
-			user:user,
-			auth:true,
-			query:query,
-			result:result
-
-
-		}
-	res.render("searchCar", searchPack)
-	
-	}else{
-
-		let searchPack={
-
-			
-			auth:false,
-			query:query,
-			result:result
-
-		}
-
-	res.render("searchCar", searchPack)
-	}
-
-	
-});
-
-
-app.get("/signin", function(req, res){
-
-	res.render("signin")
-	
-});
-
-app.get("/signup", function(req, res){
-
-	res.render("signup")
-	
-});
-
-app.get("/signOut", function(req, res) {
-
-    req.logout();
-    res.redirect("/");
-
-})
 
 
 // Admin section
@@ -489,348 +322,9 @@ app.get("/signOut", function(req, res) {
 //adminHome
 
 
-/*if (req.isAuthenticated()) {
 
-    	if(req.user.admin==true){
 
 
-
-    	}else{
-
-    		res.render("error",{message:"Unauthorized, this page can only be accessed by admin accounts"})
-
-    	}
-
-    }else{
-
-    	res.redirect("/signin")
-    }*/
-
-app.get("/adminhome", async function(req, res) {
-
-    if (req.isAuthenticated()) {
-
-    	if(req.user.admin==true){
-    		let user = await mainApp.processUser(req.user);
-    		let cars = await mainApp.getAllDocs(Car);
-    		let rents = await mainApp.getAllDocs(Rent);
-    		let users = await mainApp.getAllDocs(User);
-    		let customers = users.length;
-
-    		let pack = {
-
-    		user:user,
-			auth:true,
-			customers:customers,
-			cars:cars,
-			rents:rents
-			
-
-    		};
-
-    		res.render("adminHome", pack)
-
-    	}else{
-
-    		res.render("error",{message:"Unauthorized, this page can only be accessed by admin accounts"})
-
-    	}
-
-    }else{
-
-    	res.redirect("/signin")
-    }
-
-})
-
-app.get("/adminCars", async function(req, res){
-
-	if (req.isAuthenticated()) {
-
-    	if(req.user.admin==true){
-
-    		let user = await mainApp.processUser(req.user);
-    		let cars = await mainApp.getAllDocs(Car);
-    		let pack = {
-
-    		user:user,
-			auth:true,
-			cars:cars
-			
-			
-
-    		};
-
-    		res.render("admincars", pack)
-    	}else{
-
-    		res.render("error",{message:"Unauthorized, this page can only be accessed by admin accounts"})
-
-    	}
-
-    }else{
-
-    	res.redirect("/signin")
-    }
-	
-});
-
-
-app.get("/deleteCar/:carID", function(req, res){
-
-	if (req.isAuthenticated()) {
-
-    	if(req.user.admin==true){
-
-    		Car.findByIdAndRemove(req.params.carID, function(err, exploto){
-
-    			res.redirect("/adminCars")
-    			console.log('Doc deleted')
-    		})
-
-
-    	}else{
-
-    		res.render("error",{message:"Unauthorized, this page can only be accessed by admin accounts"})
-
-    	}
-
-    }else{
-
-    	res.redirect("/signin")
-    }
-	
-});
-
-
-app.get("/adminRents", async function(req, res){
-
-	if (req.isAuthenticated()) {
-
-    	if(req.user.admin==true){
-
-    	let user = await mainApp.processUser(req.user);
-    		let rents = await mainApp.getAllDocs(Rent);
-    		let cars = await mainApp.getAllDocs(Car);
-    		let pack = {
-
-    		user:user,
-			auth:true,
-			rents:rents,
-			cars:cars
-			
-			
-
-    		};
-
-    		res.render("adminRents", pack)
-
-    	}else{
-
-    		res.render("error",{message:"Unauthorized, this page can only be accessed by admin accounts"})
-
-    	}
-
-    }else{
-
-    	res.redirect("/signin")
-    }
-
-
-})
-
-
-app.get("/adminRenters", async function(req, res){
-
-	if (req.isAuthenticated()) {
-
-    	if(req.user.admin==true){
-
-    	let renters = await mainApp.getAllDocs(User);
-    	let user = await mainApp.processUser(req.user);
-
-    	let pack = {
-
-    		user:user,
-			auth:true,
-			renters:renters
-			
-			
-			
-
-    		};
-
-    		res.render("adminRenters", pack)
-
-    	}else{
-
-    		res.render("error",{message:"Unauthorized, this page can only be accessed by admin accounts"})
-
-    	}
-
-    }else{
-
-    	res.redirect("/signin")
-    }
-
-
-})
-
-
-app.get("/editUser/:userID", async function(req, res){
-
-	if (req.isAuthenticated()) {
-
-    	if(req.user.admin==true){
-
-    	let rents = [];
-		let cars = [];
-		let user = await mainApp.processUser(req.user);
-		let targetUser = await mainApp.getOneDoc(User, req.params.userID);
-
-		for(let i=0;i<targetUser.rents.length;i++){
-
-			let rentID =  targetUser.rents[i];
-			let rent = await mainApp.getOneDoc(Rent, rentID);
-			
-			rents.push(rent)
-		}
-
-		for(let i=0;i<targetUser.rents.length;i++){
-
-			let carID =  rents[i].car;
-			let car = await mainApp.getOneDoc(Car, carID);
-			
-			cars.push(car)
-		}
-
-		let accountPack={
-			user:user,
-			user1:targetUser,
-			auth:true,
-			rents:rents,
-			cars:cars
-
-		}
-
-		res.render("adminVEuser", accountPack)
-
-    	}else{
-
-    		res.render("error",{message:"Unauthorized, this page can only be accessed by admin accounts"})
-
-    	}
-
-    }else{
-
-    	res.redirect("/signin")
-    }
-
-})
-
-
-app.get("/addcredit/:userID/:credit", async function(req, res){
-
-	if (req.isAuthenticated()) {
-
-    	if(req.user.admin==true){
-
-    		let userUp = await mainApp.updateDocObj(User, req.params.userID, {credit:Number(req.params.credit)});
-
-    		res.send("/edituser/"+req.params.userID);
-
-
-    	}else{
-
-    		res.redirect("/error")
-
-    	}
-
-    }else{
-
-    	res.redirect("/signin")
-    }
-
-
-})
-
-app.get("/addcar", async function(req, res){
-
-	if (req.isAuthenticated()) {
-
-    	if(req.user.admin==true){
-
-
-    	let user = await mainApp.processUser(req.user);
-
-    	let pack = {
-
-    		user:user,
-			auth:true
-			
-			
-			
-			
-
-    		};
-
-    		res.render("addCar", pack)
-
-    	}else{
-
-    		res.render("error",{message:"Unauthorized, this page can only be accessed by admin accounts"})
-
-    	}
-
-    }else{
-
-    	res.redirect("/signin")
-    }
-
-})
-
-app.get("/editcar/:carID", async function(req, res){
-
-	if (req.isAuthenticated()) {
-
-    	if(req.user.admin==true){
-
-
-    	let user = await mainApp.processUser(req.user);
-    	let car = await mainApp.getOneDoc(Car, req.params.carID);
-
-    	let pack = {
-
-    		user:user,
-			auth:true,
-			car:car
-			
-			
-			
-			
-
-    		};
-
-    		res.render("editCar", pack)
-
-    	}else{
-
-    		res.render("error",{message:"Unauthorized, this page can only be accessed by admin accounts"})
-
-    	}
-
-    }else{
-
-    	res.redirect("/signin")
-    }
-
-})
-
-app.get("/error", function(req, res){
-
-	res.render("error",{message:"Unauthorized, this page can only be accessed by admin accounts"})
-
-})
 
 
 // 								===========================
@@ -839,96 +333,7 @@ app.get("/error", function(req, res){
 // 								===========================
 // 								===========================
 
-// signup post route
 
-app.post("/signUp", async function(req, res) {
-
-	
-	let ageVer = await signUpApp.checkAge(req.body.dob);
-	if(ageVer==false){
-		res.send("Age less than 18 years not allowed")
-	}else{
-    User.register({ username: req.body.username }, req.body.password, function(err, user) {
-
-        if (err) {
-            console.log(err)
-
-            res.redirect('/signUp?error=' + encodeURIComponent('Email already taken'));
-        } else {
-
-
-            passport.authenticate("local")(req, res, function() {
-
-                let query = { username: req.body.username };
-                let update = {
-
-                    name: req.body.name + " ",
-                    email: req.body.username,
-                    profileImg: "https://media.publit.io/file/Sokogate/Sokogate/12055105.jpg",
-                    mobileNum: req.body.userMobile,
-                    dateofbirth:req.body.dob,
-                    credit:100000,
-                    admin:false,
-                    ver:false,
-                    rents:[]
-
-
-
-                };
-                User.findOneAndUpdate(query, update, function(err, result) {
-
-                    if (err) { console.log(err) } else {
-
-
-
-                    }
-                }).then(res.redirect("/"));
-
-            })
-        }
-
-
-    })}
-});
-
-// signin post route
-
-app.post("/signIn", function(req, res) {
-
-	
-    const username = req.body.username;
-    const password = req.body.password;
-
-    const user = new User({
-
-        username: req.body.username,
-        password: req.body.password
-    });
-
-    req.login(user, function(err) {
-
-        if (err) {
-            console.log(err);
-        } else {
-            passport.authenticate("local")(req, res, function() {
-
-                console.log("Sign in successful");
-                if(req.user.admin==true){
-
-                res.redirect("/adminhome");
-
-                }else{
-
-                res.redirect("/");
-
-                }
-
-            })
-        }
-
-    })
-
-});
 
 //ad  car
 
@@ -1283,111 +688,43 @@ app.post("/postOil/:rentID", function(req, res) {
 
 
 
-app.post("/userEditAcc/:userID", async function(req, res) {
-	
-	
-	let user = await mainApp.getOneDoc(User, req.params.userID);
-	var edition = JSON.parse(req.body.package);
-	let name;
-	let mNum;
-	let profileImg;
-	let license;
-	//accept profile img
-	if(!(edition.img1=="")){
-
-		let pack2 = {
-
-			folder:"shareCarTemp/Profile"
-		}
-		let cloudRes = await cloudinary.uploadFile(edition.img1, pack2);
-		profileImg = cloudRes.data.url;
 
 
-	}else{
 
-		profileImg = user.profileImg;
-	}
-	//accept icense img
-	if(!(edition.img2=="")){
+// 								===========================
+// 								===========================
+// 									New Routes section
+// 								===========================
+// 								===========================
 
-		let pack3 = {
-
-			folder:"shareCarTemp/License"
-		}
-		let cloudRes1 = await cloudinary.uploadFile(edition.img2, pack3);
-		license = cloudRes1.data.url;
-	}else{
-
-		license = user.license;
-	}
-
-	//accept name
-
-	if(!(edition.name=="")){
+app.use("/",userRoutes)
+app.use("/",carRoutes)
+app.use("/",adminRoutes)
 
 
-		name = edition.name;
-	}else{
+// Error for non-existing route
+app.use((req, res, next) => {
+	const error = new HttpError("This route doesn't exist.", 404);
+	throw error;
+  });
+  
+  
+  
+  // Middlware for error handling
+  app.use((err,req,res,next)=>{
+	  
+	  if(res.headerSent){
+		  return next(err)
+	  }
 
-		name = user.name;
-	}
-
-	//accept number
-
-	if(!(edition.mobileNum=="")){
-
-
-		mNum = edition.mobileNum;
-	}else{
-
-		mNum = user.mobileNum;
-	}
-
-	let update = {
-
-		name:name,
-		mobileNum:mNum,
-		profileImg:profileImg,
-		license:license
-
-	}
-
-	User.findByIdAndUpdate(user._id, update , null , function(err, result){
-
-			if (err) {console.log(err)}else{
-
-			User.findById(user._id, function (err, doc) {
-
-				if (err) {console.log(err)}else{
-
-					if(!(doc.license==undefined)){
-
-						User.findByIdAndUpdate(user._id, {ver:true} , null , function(err, result){
-									
-
-									if (err) {console.log(err)}else{
-
-										res.send("/account")
-									}
-							})
-
-					}else{
+	  let code = err.code || 500
+	  let message = err.message || "Oops, an unknown error occured."
+	  res.render("error",{message,code})
+	  
+  })
 
 
-						res.send(false);
-					}
 
-				}
-			
-
-		});
-			}
-
-		})
-
-    
-
-});
 
 
 // Please apply your mongo key here
