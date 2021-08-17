@@ -106,7 +106,7 @@
                                 <tr>
                                     <td><h3>Add Credit to this user: </h3></td>
                                     <td>
-                                        <div class="" style="width: 300px;"><label style="margin-right: 10px;">Credits($):</label><input class="form-control" type="number" name="credit" id="addedCredit" data-user="<%= user1._id %>"><button class="btn btn-primary mx-auto addCred" type="button"  style="background-color: rgb(31,31,31);margin-top: 5px;">Add credit</button></div>
+                                        <div class="" style="width: 300px;"><label style="margin-right: 10px;">Credits($):</label><form method="POST" action="/addcredit/<%= user1._id %>" ><input class="form-control" type="number" name="credit" id="addedCredit" data-user=""><button class="btn btn-primary mx-auto addCred" type="submit"  style="background-color: rgb(31,31,31);margin-top: 5px;">Add credit</button></form></div>
                                     </td>
                                 </tr>
                             </tbody>

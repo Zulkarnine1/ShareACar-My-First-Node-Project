@@ -85,7 +85,7 @@
     <%if(user.admin==true){ %>
     <div class="mx-auto" style="width: fit-content;margin-top: 30px">
         <a align="center" class="EditBtn" href="/editcar/<%= car._id %>" >Edit car</a>
-        <a align="center" class="EditBtn" href="/deleteCar/<%= car._id %>" >Delete car</a>
+        <a align="center" class="EditBtn deleteCar" href="/admincars" data-deleteLink="/deleteCar/<%= car._id %>" >Delete car</a>
     </div>
     <%}}%>
 						
@@ -100,6 +100,7 @@
     <script src="../carDisAssets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../carDisAssets/js/range.js"></script>
     <script src="../carDisAssets/js/script.js"></script>
+    <script src="../adminCars/js/script.js"></script>
 </body>
 
 </html>
